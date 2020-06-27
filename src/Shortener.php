@@ -1,17 +1,18 @@
 <?php
 
+//replace this with the credentials according to the setup of your instace of the DB
 $servername = "localhost";
 $username = "root";
-$password = "w7o8r9k$";
+$password = "PW";
 $dbname = "db1";
 $table = "url";
-$domain = "www.short/";
+$domain = "http://short/";
 
 // item1 = $_GET['longurl'];
 // echo $item1;
 
-$longurl = $_REQUEST['longurl'];
-//echo 'longurl- '.$url;
+$longurl = rawurldecode($_REQUEST['longurl']);
+//echo 'longurl- '.$longurl;
 
 
 //$newurl = shortener("www.mysite.com/legal/online/make-sure-you-are-charging-sales-tax", $servername, $username, $password, $table, $dbname, $domain);

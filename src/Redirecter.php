@@ -2,12 +2,12 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "w7o8r9k$";
+$password = "PW";
 $dbname = "db1";
 $table = "url";
-$domain = "www.short/";
+$domain = "http://short/";
 
-$shorturl = $_REQUEST['shorturl'];
+$shorturl = rawurldecode($_REQUEST['shorturl']);
 //echo $shorturl;
 //$gotourl = redir("www.short/u", $servername, $username, $password, $table, $dbname);
 $gotourl = redir($shorturl, $servername, $username, $password, $table, $dbname);
@@ -33,7 +33,7 @@ function shortURLtoID(string $shortURL)
 function redir(string $shortURL, $servername, $username, $password, $table, $dbname)
 {
     //text processing to remove the domain name - for now, lets just strip the 1st few characters
-    $id = shorturltoID(substr($shortURL, 10));
+    $id = shorturltoID(substr($shortURL, 13));
     
     $conn = new mysqli($servername, $username, $password);
     if ($conn->connect_error) {

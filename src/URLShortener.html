@@ -56,7 +56,6 @@ button {
             <!-- <button onclick="location.href=func2();">GO</button>    -->
             <!-- <button type="button" onclick="location.href=redirec()">GO</button> -->
             <button type="button" onclick="redirec()">GO</button>
-
             <!-- <input type="text" placeholder="Enter text" name="demo" > 
             <button type="button" onclick="ajaxtry()">Change Content</button> -->
         </div>   
@@ -69,20 +68,28 @@ button {
 <script type = "text/javascript">
 
 function newURL() {
-var lurl = document.getElementById("longurlinp").value;
+var lurli = document.getElementById("longurlinp").value;
+var lurl = encodeURIComponent(lurli);
 $.ajax( { type : 'POST',
           // data : {longurl : document.getElementById("longurlinp").value},
           dataType: 'text',
           //data: {longurl: lurl}
           data: "longurl="+lurl,
           url  : 'Shortener.php',              
-          success: function(response) {$("#newurlele").html(response);}, //{alert(response);},               
+          success: function(response) {
+            // var na = $('<a/>');
+            // na.attr('href', lurli);
+            // na.text(response);
+            // $('#newurlele').append(na);
+          // },
+            $("#newurlele").html(response);}, //{alert(response);},               
           error: function(xhr) {alert("error");}
         } );
 }
 
 function redirec() {
 var surl = document.getElementById("shorturlinp").value;
+surl = encodeURIComponent(surl);
 $.ajax( { type : 'POST',
           dataType: 'text',
           data: "shorturl="+surl,
