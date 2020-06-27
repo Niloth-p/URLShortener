@@ -1,0 +1,105 @@
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> UI Page </title>  
+<style>   
+Body {  
+  font-family: Calibri, Helvetica, sans-serif;  
+  background-color: black;  
+}  
+button {   
+       background-color: #4CAF50;   
+       width: 20%;  
+        color: orange;   
+        padding: 12px;
+        margin: 10px 600px;   
+        border: none;   
+        cursor: pointer;   
+         }   
+ form {   
+        border: 3px solid #f1f1f1;   
+    }   
+ input[type=text] {   
+        width: 100%;   
+        margin: 8px 0;  
+        padding: 12px 20px;   
+        display: inline-block;   
+        border: 2px solid green;   
+        box-sizing: border-box;   
+    }  
+ button:hover {   
+        opacity: 0.7;   
+    }   
+        
+ .container {   
+        padding: 25px;   
+        background-color: lightblue;  
+    }   
+</style>  
+
+</head>    
+<body>    
+    <center> <h1> URL Shortener </h1> </center>   
+    <!-- <form action="Shortener.php">   -->
+    <form>
+        <div class="container">   
+            <label>Shorten URL : </label>   
+            <input type="text" placeholder="Enter URL" id="longurlinp" >
+            <button type="button" onclick="newURL()">GO</button>  
+        </div>
+    </form>    
+    <form action="Redirecter.php">
+        <div class="container">        
+            <label>Redirect to URL : </label>   
+            <input type="text" placeholder="Enter URL" id="shorturlinp" >  
+            <!-- <button onclick="location.href=func2();">GO</button>    -->
+            <!-- <button type="button" onclick="location.href=redirec()">GO</button> -->
+            <button type="button" onclick="redirec()">GO</button>
+
+            <!-- <input type="text" placeholder="Enter text" name="demo" > 
+            <button type="button" onclick="ajaxtry()">Change Content</button> -->
+        </div>   
+    </form> 
+    <div id="newurlele" class="container">   </div>
+    <div id="redirectlink" class="container"> </div>
+    <!-- <a id="redirectlink2" href="getrequestui"></a> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type = "text/javascript">
+
+function newURL() {
+var lurl = document.getElementById("longurlinp").value;
+$.ajax( { type : 'POST',
+          // data : {longurl : document.getElementById("longurlinp").value},
+          dataType: 'text',
+          //data: {longurl: lurl}
+          data: "longurl="+lurl,
+          url  : 'Shortener.php',              
+          success: function(response) {$("#newurlele").html(response);}, //{alert(response);},               
+          error: function(xhr) {alert("error");}
+        } );
+}
+
+function redirec() {
+var surl = document.getElementById("shorturlinp").value;
+$.ajax( { type : 'POST',
+          dataType: 'text',
+          data: "shorturl="+surl,
+          url  : 'Redirecter.php',              
+          success: function(response) 
+          { var na = $('<a/>');
+            na.attr('href', response);
+            na.text(response);
+            $('#redirectlink').append(na);
+          }, 
+          //{$("#redirectlink").append('a href="#">Link</a>');},
+          //{$("#redirectlink").html(response);},//{$('<div/>').html((data[i]['title']);}, // //{alert(response);},               .
+          error: function(xhr) {alert("error");}
+        } );
+}
+
+</script>
+
+</body>     
+</html>  

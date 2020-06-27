@@ -7,21 +7,25 @@ $dbname = "db1";
 $table = "url";
 $domain = "www.short/";
 
-$gotourl = redir("https://short/a", $servername, $username, $password, $table, $dbname);
+$shorturl = $_REQUEST['shorturl'];
+//echo $shorturl;
+//$gotourl = redir("www.short/u", $servername, $username, $password, $table, $dbname);
+$gotourl = redir($shorturl, $servername, $username, $password, $table, $dbname);
 
 function shortURLtoID(string $shortURL)
 {
     //echo nl2br("Getting ID\n");
-    $id = 1;
+    $id = 0;
     for($i=0; $i < strlen($shortURL); $i++)
     {
-        if (ord('a') <= $shortURL[$i] && $shortURL[$i] <= ord('z')) 
-          $id = $id*62 + $shortURL[$i] - ord('a'); 
-        if (ord('A') <= $shortURL[$i] && $shortURL[$i] <= ord('Z') )
-          $id = $id*62 + $shortURL[$i] - ord('A') + 26; 
-        if (ord('0') <= $shortURL[$i] && $shortURL[$i] <= ord('9')) 
-          $id = $id*62 + $shortURL[$i] - ord('0') + 52; 
+        if (ord('a') <= ord($shortURL[$i]) && ord($shortURL[$i]) <= ord('z')) 
+            $id = $id*62 + ord($shortURL[$i]) - ord('a'); 
+        if (ord('A') <= ord($shortURL[$i]) && ord($shortURL[$i]) <= ord('Z') )
+            $id = $id*62 + ord($shortURL[$i]) - ord('A') + 26; 
+        if (ord('0') <= ord($shortURL[$i]) && ord($shortURL[$i]) <= ord('9')) 
+            $id = $id*62 + ord($shortURL[$i]) - ord('0') + 52; 
     }
+    $id = $id + 1;
     //echo nl2br("ID is $id\n");
     return $id;
 }
@@ -45,7 +49,7 @@ function redir(string $shortURL, $servername, $username, $password, $table, $dbn
     $res = $row[0];
 
     $conn->close();
-    echo nl2br("$res\n");
+    echo nl2br("$res");
     return $res;
 }
 

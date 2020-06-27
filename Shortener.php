@@ -7,13 +7,16 @@ $dbname = "db1";
 $table = "url";
 $domain = "www.short/";
 
-echo "reached";
-//$newurl = shortener("www.mysite.com/legal/online/make-sure-you-are-charging-sales-tax", $servername, $username, $password, $table, $dbname, $domain);
-$newurl = shortener("www.yoursite.com/pricing?utm_source=active%20users&utm_medium=email&utm_campaign=feature%20launch&utm_content=bottom%20cta%20button", $servername, $username, $password, $table, $dbname, $domain);
-echo $newurl;
-// echo nl2br("$temp\n");
+// item1 = $_GET['longurl'];
+// echo $item1;
 
-//redir("https://short/a", $servername, $username, $password, $table, $dbname);
+$longurl = $_REQUEST['longurl'];
+//echo 'longurl- '.$url;
+
+
+//$newurl = shortener("www.mysite.com/legal/online/make-sure-you-are-charging-sales-tax", $servername, $username, $password, $table, $dbname, $domain);
+$newurl = shortener($longurl, $servername, $username, $password, $table, $dbname, $domain);
+echo $newurl;
 
 function shortener(string $longurl, $servername, $username, $password, $table, $dbname, $domain)
 {
